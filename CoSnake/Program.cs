@@ -9,14 +9,24 @@ namespace CoSnake
     {
         static void Main(string[] args)
         {
-            //GameLoop();
-            var output = new List<char[]>();
-            output.Add(new []{'#','#','#'});
-            output.Add(new[] { '#', ' ', '#' });
-            output.Add(new[] { '#', '#', '#' });
-            WriteArray(output);
-            //Console.WriteLine(output);
+            const int WIDTH = 30;
+            const int HEIGHT = 20;
+            Console.SetWindowSize(WIDTH + 1,HEIGHT + 1);
+            Console.SetBufferSize(WIDTH + 1,HEIGHT + 1);
+            var field = new FieldComponent<GameCell>(WIDTH,HEIGHT);
 
+            for (int y = 0; y < HEIGHT; y++)
+            {
+                for (int x = 0; x < WIDTH; x++)
+                {
+                    field.SetCell(x,y,new GameCell(' '));
+                }
+            }
+
+            field.SetBorders(new GameCell('#'));
+
+            //GameLoop();
+            WriteArray(field.Field);
             Console.ReadLine();
         }
 
@@ -64,11 +74,16 @@ namespace CoSnake
             }
         }
 
-        public static void WriteArray(List<char[]> field)
+        public static void WriteArray<T>(T[,] field) where T:GameCell
         {
-            foreach (var row in field)
-                Console.WriteLine(row);
-            
+            for (int y = 0; y < field.GetLength(0); y++)
+            {
+                for (int x = 0; x < field.GetLength(1); x++)
+                {
+                    Console.Write(field[y,x].Content());
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
