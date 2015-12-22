@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FieldComponent.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="ICell.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

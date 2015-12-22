@@ -13,20 +13,17 @@ namespace CoSnake
             const int HEIGHT = 20;
             Console.SetWindowSize(WIDTH + 1,HEIGHT + 1);
             Console.SetBufferSize(WIDTH + 1,HEIGHT + 1);
-            var field = new FieldComponent<GameCell>(WIDTH,HEIGHT);
 
-            for (int y = 0; y < HEIGHT; y++)
-            {
-                for (int x = 0; x < WIDTH; x++)
-                {
-                    field.SetCell(x,y,new GameCell(' '));
-                }
-            }
+            var game = new Game(gameField : new FieldComponent<ICell>(WIDTH, HEIGHT), 
+                                player : new GameCell('@'),
+                                border: new GameCell('#'),
+                                space: new GameCell(' '));
 
-            field.SetBorders(new GameCell('#'));
+            game.InsertBordersToMap();
+            game.SetPlayerPosition(1,1);
 
             //GameLoop();
-            WriteArray(field.Field);
+            WriteArray(game.GameField.Field);
             Console.ReadLine();
         }
 
@@ -74,7 +71,7 @@ namespace CoSnake
             }
         }
 
-        public static void WriteArray<T>(T[,] field) where T:GameCell
+        public static void WriteArray<T>(T[,] field) where T:ICell
         {
             for (int y = 0; y < field.GetLength(0); y++)
             {
