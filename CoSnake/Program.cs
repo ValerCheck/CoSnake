@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace CoSnake
@@ -9,22 +7,9 @@ namespace CoSnake
     {
         static void Main(string[] args)
         {
-            const int WIDTH = 30;
-            const int HEIGHT = 20;
-            Console.SetWindowSize(WIDTH + 1,HEIGHT + 1);
-            Console.SetBufferSize(WIDTH + 1,HEIGHT + 1);
-
-            var game = new Game(gameField : new FieldComponent<ICell>(WIDTH, HEIGHT), 
-                                player : new GameCell('@'),
-                                border: new GameCell('#'),
-                                space: new GameCell(' '));
-
-            game.InsertBordersToMap();
-            game.SetPlayerPosition(1,1);
-
-            //GameLoop();
-            WriteArray(game.GameField.Field);
-            Console.ReadLine();
+            var game = new ConsoleGame("CoSnake",50,30);
+            var key = Console.ReadKey().Key;
+            if(key == ConsoleKey.Enter) game.StartGame();
         }
 
         static void GameLoop()
@@ -68,18 +53,6 @@ namespace CoSnake
                 
                 Console.Clear();
                 Console.WriteLine(bldr.ToString());
-            }
-        }
-
-        public static void WriteArray<T>(T[,] field) where T:ICell
-        {
-            for (int y = 0; y < field.GetLength(0); y++)
-            {
-                for (int x = 0; x < field.GetLength(1); x++)
-                {
-                    Console.Write(field[y,x].Content());
-                }
-                Console.WriteLine();
             }
         }
     }

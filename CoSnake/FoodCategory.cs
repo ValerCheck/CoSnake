@@ -5,11 +5,9 @@ using System.Text;
 
 namespace CoSnake
 {
-    public enum GameState
+    public enum FoodCategory
     {
-        Running,
-        Created,
-        Stopped,
-        Paused
+        Toxic = 0,
+        Edible = 1
     }
 }
